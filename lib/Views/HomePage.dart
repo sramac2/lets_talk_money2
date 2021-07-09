@@ -14,13 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static List<Widget> _widgetOptions = [];
   InterstitialAd _interstitialAd;
   bool _isInterstitialAdReady = false;
   Future<List<Friend>> friendsList;
   ChatAPI chatAPI = ChatAPI();
   RewardedAd _rewardedAd;
-
-  // TODO: Add _isRewardedAdReady
   bool _isRewardedAdReady = false;
 
   void _loadRewardedAd() {
@@ -54,9 +53,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  User currUser;
   @override
   void initState() {
-    var currUser = FirebaseAuth.instance.currentUser;
+    currUser = FirebaseAuth.instance.currentUser;
     friendsList = chatAPI.getAllFriends(currUser.uid);
     _loadInterstitialAd();
     _loadRewardedAd();
@@ -97,8 +97,7 @@ class _HomePageState extends State<HomePage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-
-          title: Text('Friends',key: const Key('friends')),
+          title: Text('Friends', key: const Key('friends')),
           actions: [
             IconButton(
               icon: Icon(Icons.gif_outlined),
@@ -112,8 +111,18 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Text('Reward'),
-          onPressed: () {
+          onPressed: () async {
             _rewardedAd.show();
+            // var friend =
+            //     await chatAPI.findFriend('l9B68rOfiRT7YPyd2mMvDyO1Vvc2');
+            // print(chatAPI.createFriend(currUser.uid, friend));
+
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => ChatPage(
+            //               friend: friend,
+            //             )));
           },
         ),
         body: FutureBuilder<List<Friend>>(

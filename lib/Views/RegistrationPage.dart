@@ -2,9 +2,9 @@ import 'package:lets_talk_money2/Controllers/AuthAPI.dart';
 import 'package:lets_talk_money2/Models/User.dart' as models;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lets_talk_money2/Views/Profile.dart';
+import 'package:lets_talk_money2/Views/bottomDrawerPage.dart';
 import 'package:uuid/uuid.dart';
-
-import 'HomePage.dart';
 
 class RegistrationDemo extends StatelessWidget {
   const RegistrationDemo({Key key}) : super(key: key);
@@ -104,18 +104,25 @@ class _RegistrationPageState extends State<RegistrationPage> {
     String pwd = pwdController.text.trim();
     String fName = fNameController.text.trim();
     String lName = lNameController.text.trim();
+
     if (email.isEmpty || pwd.isEmpty || fName.isEmpty || lName.isEmpty) {
       snackBar = SnackBar(content: Text('All fields need to be filled!'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
-    String authRes = await authAPI.registerEmailPass(email, pwd);
+    String authRes;
+    if (currentUser != null && currentUser.isAnonymous) {
+      var credential =
+          EmailAuthProvider.credential(email: email, password: pwd);
+      currentUser.linkWithCredential(credential);
+    } else {
+      authRes = await authAPI.registerEmailPass(email, pwd);
+    }
     if (authRes != null) {
       snackBar = SnackBar(content: Text(authRes));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;
     }
-
     models.User user = models.User(
         firstName: fName,
         lastName: lName,
@@ -132,6 +139,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
     Navigator.pop(context);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => BottomDrawerPage()));
   }
 }

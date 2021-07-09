@@ -7,6 +7,7 @@ import 'package:lets_talk_money2/Controllers/AuthAPI.dart';
 import 'package:lets_talk_money2/Helpers/Adhelper.dart';
 import 'package:lets_talk_money2/Views/HomePage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lets_talk_money2/Views/bottomDrawerPage.dart';
 import 'RegistrationPage.dart';
 
 class LoginDemo extends StatelessWidget {
@@ -87,7 +88,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<InitializationStatus> _initGoogleMobileAds() {
-    // TODO: Initialize Google Mobile Ads SDK
     return MobileAds.instance.initialize();
   }
 
@@ -155,10 +155,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 MaterialButton(
                   onPressed: () async {
-                    UserCredential userCredential =
-                        await FirebaseAuth.instance.signInAnonymously();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    var res = await api.signinAnon();
+                    if (res.runtimeType == UserCredential) {
+                      print((res as UserCredential).user.uid);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => BottomDrawerPage()));
+                    }
                   },
                   child: Text('Sign in Anonymously'),
                 ),
@@ -192,6 +194,6 @@ class _LoginPageState extends State<LoginPage> {
     }
     Navigator.pop(context);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => BottomDrawerPage()));
   }
 }

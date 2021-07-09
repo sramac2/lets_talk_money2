@@ -1,6 +1,7 @@
 import 'package:lets_talk_money2/Models/Friend.dart';
 import 'package:lets_talk_money2/Models/Message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lets_talk_money2/Models/User.dart';
 
 class ChatAPI {
   Future<List<Friend>> getAllFriends(String uid) async {
@@ -18,6 +19,41 @@ class ChatAPI {
       );
     }
     return result;
+  }
+
+  Future<Friend> findFriend(String uid) async {
+    var document = FirebaseFirestore.instance.collection('users').doc(uid);
+    var a = await document
+        .get()
+        .then((value) => {Friend.fromJson(value.data())})
+        .onError((error, stackTrace) => null);
+
+    return a.first;
+  }
+
+  Future<String> createFriend(String uid, Friend friend) async {
+    var document = FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('friends')
+        .doc(friend.uid);
+
+    var response = await document
+        .set(friend.toJson())
+        .then((value) => null)
+        .catchError((error) => error.toString());
+    // document = FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(friend.uid)
+    //     .collection('friends')
+    //     .doc(user.uid);
+    
+    //  response = await document
+    //     .set(user.toJson())
+    //     .then((value) => null)
+    //     .catchError((error) => error.toString());
+
+    return response;
   }
 
   Future<String> postMessage(

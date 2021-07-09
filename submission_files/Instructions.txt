@@ -5,3 +5,8 @@ To run Performance testing: flutter drive --target=test_driver/performance.dart
 Login page will have banner ad
 Home page app GIF icon opens Interstitial ad
 Home page app floating reward button opens Rewarded ad
+Performance time json file: build/login_timeline.timeline.json
+Login_Summary.timeline_summary.json
+Login info: email: testing2@gmail.com pwd: testing2
+Login info: email: testing3@gmail.com pwd: testing3
+Login info: email: testing4@gmail.com pwd: testing4

@@ -42,6 +42,13 @@ class AuthAPI {
     return null;
   }
 
+  Future<dynamic> signinAnon() async {
+    return await FirebaseAuth.instance
+        .signInAnonymously()
+        .then((value) => value)
+        .onError((error, stackTrace) => error);
+  }
+
   Future<String> createUser(models.User user, String uid) async {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     return await users
