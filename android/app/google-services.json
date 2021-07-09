@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1097615344791",
+    "project_id": "letstalkmoney2-46323",
+    "storage_bucket": "letstalkmoney2-46323.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097615344791:android:c727fafdf7ad9f27a955d2",
+        "android_client_info": {
+          "package_name": "com.example.lets_talk_money2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1097615344791-dcsfie90njm6munhhqqht4fnl843dvig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4l3fv0Dkkt_PoBMzmYKGnA1Fj5KMUJNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1097615344791-dcsfie90njm6munhhqqht4fnl843dvig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
