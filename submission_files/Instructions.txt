@@ -1,3 +1,6 @@
+
+Same Commands would also properly run in IOS device as well
+
 To run the app: flutter run and select target device
 To run unit tests: flutter test .\test\friend_test.dart
 to run integration testing: flutter drive --target=test_driver/app.dart
@@ -10,3 +13,4 @@ Login_Summary.timeline_summary.json
 Login info: email: testing2@gmail.com pwd: testing2
 Login info: email: testing3@gmail.com pwd: testing3
 Login info: email: testing4@gmail.com pwd: testing4
+
